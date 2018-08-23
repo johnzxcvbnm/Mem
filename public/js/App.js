@@ -15,10 +15,11 @@ class App extends React.Component {
     this.setUser = this.setUser.bind(this);
     this.logOut = this.logOut.bind(this);
     this.loginUser = this.loginUser.bind(this);
+    this.loadPosts = this.loadPosts.bind(this);
   }
 
   componentDidMount() {
-
+    this.loadPosts();
   }
 
   changePage(newPage){
@@ -29,6 +30,22 @@ class App extends React.Component {
     }
     toUpdate[newPage] = true;
     this.setState({page: toUpdate});
+  }
+
+  loadPosts(){
+    fetch("/posts")
+    .then(response => response.json())
+    .then(all_posts => {
+      // console.log(all_posts);
+      if(all_posts[0] == null){
+        const new_post = {
+          "url": "https://sweetytextmessages.com/wp-content/uploads/2018/01/8-Cats-Saying-Funny-Things.jpg",
+          "user_id": 1
+        }
+      } else {
+        this.setState({posts: all_posts})
+      }
+    }).catch(error => console.log(error));
   }
 
   createUser(new_user){
@@ -63,15 +80,15 @@ class App extends React.Component {
   }
 
   loginUser(new_user){
-    console.log("Loggin In User");
-    console.log(new_user);
+    // console.log("Loggin In User");
+    // console.log(new_user);
     fetch("/users/find/'" + new_user.username + "'")
     .then(response => response.json())
     .then(logged_user => {
       if(new_user.password === logged_user.password){
         this.setUser(logged_user);
         this.changePage("postList");
-        console.log("Logged In");
+        // console.log("Logged In");
       }
     }).catch(error => {
         console.log(error);

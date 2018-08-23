@@ -14,7 +14,9 @@ class Post
       <<-SQL
         SELECT
           posts.*,
-          users.*
+          users.id AS users_id,
+          users.username,
+          users.password
         FROM posts
         LEFT JOIN users
           ON posts.user_id = users.id;
@@ -36,31 +38,21 @@ class Post
       <<-SQL
         SELECT
           posts.*,
-          users.*,
-          likes.*
+          users.id AS users_id,
+          users.username,
+          users.password
         FROM posts
         JOIN users
           ON posts.user_id = users.id
-        LEFT JOIN likes
-          ON users.id = likes.user_like_id
         WHERE posts.id = #{id};
       SQL
     )
-    likes = []
-    results.each do |result|
-      likes.push({
-        "id" => result["user_id"].to_i,
-        "username" => result["username"]
-      })
-    end
-    p results
 
     return {
       "id" => results.first["id"].to_i,
       "url" => results.first["url"],
       "user_id" => results.first["user_id"].to_i,
-      "username" => results.first["username"],
-      "likes" => likes
+      "username" => results.first["username"]
     }
   end
 

@@ -8,19 +8,24 @@ class Post
   end
 
   #Pulls all the posts along with their user who created it
+  # SELECT * FROM posts LEFT JOIN likes ON likes.post_id = posts.id LEFT JOIN users ON likes.user_like_id = users.id;
   def self.all
     results = DB.exec(
       <<-SQL
         SELECT
-          posts.*
+          posts.*,
+          users.*
         FROM posts
+        LEFT JOIN users
+          ON posts.user_id = users.id;
       SQL
     )
     return results.map do |result|
       {
         "id" => result["id"].to_i,
         "url" => result["url"],
-        "user_id" => result["user_id"].to_i
+        "user_id" => result["user_id"].to_i,
+        "username" => result["username"]
       }
     end
   end
@@ -30,18 +35,32 @@ class Post
     results = DB.exec(
       <<-SQL
         SELECT
-          posts.*
+          posts.*,
+          users.*,
+          likes.*
         FROM posts
         JOIN users
           ON posts.user_id = users.id
+        LEFT JOIN likes
+          ON users.id = likes.user_like_id
         WHERE posts.id = #{id};
       SQL
-    ).first
+    )
+    likes = []
+    results.each do |result|
+      likes.push({
+        "id" => result["user_id"].to_i,
+        "username" => result["username"]
+      })
+    end
+    p results
+
     return {
-      "id" => results["id"].to_i,
-      "url" => results["url"],
-      "user_id" => results["user_id"].to_i,
-      "username" => results["username"]
+      "id" => results.first["id"].to_i,
+      "url" => results.first["url"],
+      "user_id" => results.first["user_id"].to_i,
+      "username" => results.first["username"],
+      "likes" => likes
     }
   end
 

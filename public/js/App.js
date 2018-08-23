@@ -215,7 +215,8 @@ class App extends React.Component {
             <PostForm
               loggedUser={this.state.loggedUser}
               functionExecute={this.createPost}
-              changePage={this.changePage}/>
+              changePage={this.changePage}
+              title="New Post"/>
           : ''
         }
         {
@@ -224,7 +225,8 @@ class App extends React.Component {
               loggedUser={this.state.loggedUser}
               functionExecute={this.editPost}
               changePage={this.changePage}
-              post={this.state.selectedPost}/>
+              post={this.state.selectedPost}
+              title="Edit Post"/>
           : ''
         }
         {

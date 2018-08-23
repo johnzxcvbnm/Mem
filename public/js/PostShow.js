@@ -10,20 +10,23 @@ class PostShow extends React.Component {
 
   render(){
     return (
-      <div>
-        <h5>{this.props.post.username}</h5>
-        <img src={this.props.post.url}/>
-        {
-          this.props.loggedUser.id == this.props.post.user_id ?
-            <button className="button is-info" onClick={() => this.props.changePage("postEdit")}>EDIT</button>
-          : ''
-        }
-        {
-          this.props.loggedUser.id == this.props.post.user_id ?
-            <button className="button is-dark" onClick={() => this.props.deletePost(this.props.post)}>DELETE</button>
-          : ''
-        }
-
+      <div className="custom_postWrapper">
+        <div className="custom_post">
+          <h5>{this.props.post.username}</h5>
+          <img className="postShow_Image" src={this.props.post.url}/>
+        </div>
+        <div className="button_wrapper">
+          {
+            this.props.loggedUser.id == this.props.post.user_id ?
+              <button className="button is-info custom_button" onClick={() => this.props.changePage("postEdit")}>EDIT</button>
+            : ''
+          }
+          {
+            this.props.loggedUser.id == this.props.post.user_id ?
+              <button className="button is-dark custom_button" onClick={() => this.props.deletePost(this.props.post)}>DELETE</button>
+            : ''
+          }
+        </div>
       </div>
     )
   }

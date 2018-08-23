@@ -3,6 +3,7 @@
   --color2: #FBA100;
   --color3: #6c648b;
   --color4: #b6a19e;
+  --color5: #FFDCA1;
 }
 
 html {
@@ -20,11 +21,11 @@ html {
 }
 
 .navBar_Link {
-  color: black;
+  color: var(--color3);
 }
 
 .navBar_Link:hover {
-  color: white;
+  color: var(--color5);
   cursor: pointer;
 }
 
@@ -72,11 +73,46 @@ html {
   border-radius: 15px;
 }
 
+.postShow_Image {
+  width: 700px;
+  height: 400px;
+  border-radius: 15px;
+  margin-left: 30px;
+}
+
+.button_wrapper{
+  display: flex;
+  justify-content: center;
+}
+
+.custom_button{
+  /* text-align: center; */
+  margin: 0px 10px;
+}
+
+.formTitle {
+  text-align: center;
+  font-weight: 900;
+}
+
+.custom_input {
+  margin-bottom: 15px;
+}
+
 .custom_footer {
   margin: auto;
   border-radius: 15px;
   text-align: center;
   background: var(--color4);
+  color: var(--color3);
   font-weight: 900;
   font-size: 1.3em;
+}
+
+.custom_footer a {
+  color: var(--color3);
+}
+
+.custom_footer a:hover {
+  color: var(--color5);
 }

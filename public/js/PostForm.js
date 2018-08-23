@@ -28,15 +28,15 @@ class PostForm extends React.Component {
 
   render() {
     return (
-      <div className="field">
-        <h1>Post Form</h1>
+      <div className="field custom_postWrapper">
+        <h1 className="formTitle">{this.props.title}</h1>
         <form className="post_form" onSubmit={this.handleSubmit}>
           <label className="label" for="url">Image URL</label>
           <div className="control">
-            <input className="input" type="text" id="url" ref="url" />
+            <input className="input custom_input" type="text" id="url" ref="url" />
           </div>
           <div className="submit">
-            <div className="buttons">
+            <div className="buttons button_wrapper">
               <input id="submit" className="button is-info" type="submit" />
               <button className="button is-info" onClick={() => this.props.changePage("postList")}>Cancel</button>
             </div>

@@ -16,7 +16,8 @@ class PostList extends React.Component {
             return(
               <div>
                 <h5>{post.username}</h5>
-                <img src={post.url} />
+                <img src={post.url}
+                   onClick={() => this.props.selectPost(post, index)}/>
                 <hr />
               </div>
             )

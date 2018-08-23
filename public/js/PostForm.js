@@ -6,7 +6,7 @@ class PostForm extends React.Component {
 
   componentDidMount() {
     if(this.props.post){
-
+      this.refs.url.value = this.props.post.url;
     }
   }
 
@@ -19,7 +19,7 @@ class PostForm extends React.Component {
     }
 
     if(this.props.post){
-
+      new_post["id"] = this.props.post.id;
     }
 
     this.props.functionExecute(new_post);

@@ -6,10 +6,14 @@ class App extends React.Component {
         userLogin: false,
         userRegister: false,
         postList: true,
-        postCreate: false
+        postCreate: false,
+        postShow: false,
+        postEdit: false
       },
       loggedUser: null,
-      posts: []
+      posts: [],
+      selectedPost: {},
+      selectedPostIndex: 0
     }
     this.changePage = this.changePage.bind(this);
     this.createUser = this.createUser.bind(this);
@@ -18,6 +22,9 @@ class App extends React.Component {
     this.loginUser = this.loginUser.bind(this);
     this.loadPosts = this.loadPosts.bind(this);
     this.createPost = this.createPost.bind(this);
+    this.deletePost = this.deletePost.bind(this);
+    this.selectPost = this.selectPost.bind(this);
+    this.editPost = this.editPost.bind(this);
   }
 
   componentDidMount() {
@@ -122,6 +129,57 @@ class App extends React.Component {
     .catch(error => console.log(error))
   }
 
+  deletePost(old_post){
+    // console.log("DELETE POST");
+    // console.log(old_post);
+    const index = this.state.selectedPostIndex;
+    fetch("/posts/" + old_post.id, {
+      method: "DELETE"
+    })
+    .then(data => {
+      this.setState({
+        posts: [
+          ...this.state.posts.slice(0, index),
+          ...this.state.posts.slice(index + 1)
+        ]
+      })
+      this.changePage("postList");
+    }).catch(error => console.log(error))
+  }
+
+  selectPost(post, index){
+    // console.log("SELETING POST");
+    if(post.id != 0){
+      fetch("/posts/" + post.id)
+      .then(response => response.json())
+      .then(my_post => {
+        this.setState({selectedPost: my_post,
+                       selectedPostIndex: index});
+        this.changePage("postShow");
+      }).catch(error => console.log(error));
+    }
+  }
+
+  editPost(new_post){
+    // console.log("EDIT POST");
+    // console.log(new_post);
+    fetch("/posts/" + new_post.id, {
+      body: JSON.stringify(new_post),
+      method: "PUT",
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(updatedPost => {
+      return updatedPost.json()
+    })
+    .then(jsonedPost => {
+      this.loadPosts();
+    })
+    .catch(error => console.log(error));
+  }
+
   render() {
     return (
       <div class="container">
@@ -147,7 +205,8 @@ class App extends React.Component {
         {
           this.state.page.postList ?
             <PostList
-              posts={this.state.posts}/>
+              posts={this.state.posts}
+              selectPost={this.selectPost}/>
           : ''
         }
         {
@@ -156,6 +215,25 @@ class App extends React.Component {
               loggedUser={this.state.loggedUser}
               functionExecute={this.createPost}
               changePage={this.changePage}/>
+          : ''
+        }
+        {
+          this.state.page.postEdit ?
+            <PostForm
+              loggedUser={this.state.loggedUser}
+              functionExecute={this.editPost}
+              changePage={this.changePage}
+              post={this.state.selectedPost}/>
+          : ''
+        }
+        {
+          this.state.page.postShow ?
+            <PostShow
+              changePage={this.changePage}
+              loggedUser={this.state.loggedUser}
+              post={this.state.selectedPost}
+              deletePost={this.deletePost}
+              />
           : ''
         }
 

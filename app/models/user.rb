@@ -81,6 +81,7 @@ class User
         <<-SQL
           SELECT
             users.*
+          FROM users
           WHERE username = #{name};
         SQL
     )

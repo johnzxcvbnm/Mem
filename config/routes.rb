@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
 
   # User Routes
+  get '/users/find/:name', to: 'users#showName'
   get '/users', to: 'users#index'
   get '/users/:id', to: 'users#show'
   post '/users', to: 'users#create'
   delete '/users/:id', to: 'users#delete'
   put '/users/:id', to: 'users#update'
-  get '/users/find/:name', to: 'users#showName'
 
   # Post Routes
   get '/posts', to: 'posts#index'

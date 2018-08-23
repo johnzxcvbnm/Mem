@@ -101,7 +101,8 @@ class App extends React.Component {
       <div class="container">
         <NavBar
           changePage={this.changePage}
-          loggedUser={this.state.loggedUser}/>
+          loggedUser={this.state.loggedUser}
+          logOut={this.logOut}/>
         {
           this.state.page.userRegister ?
             <UserForm

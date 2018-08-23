@@ -1,3 +1,48 @@
+:root {
+  --color1: #6BBAA7;
+  --color2: #FBA100;
+  --color3: #6c648b;
+  --color4: #b6a19e;
+}
+
 html {
-  /* background: thistle; */
+  background: var(--color3);
+}
+
+.custom_nav {
+
+}
+
+.custom_container {
+  width: 95%;
+  margin: 30px auto;
+  padding: 20px;
+  background: var(--color3);
+}
+
+.custom_postWrapper {
+  width: 100%;
+  margin: 30px auto;
+  border-radius: 30px;
+  background: var(--color1);
+}
+
+.custom_post {
+  margin: 20px auto;
+  width: 70%;
+  border-radius: 30px;
+  background: var(--color3);
+}
+
+.postList_Image {
+  width: 300px;
+  height: 300px;
+  margin: auto;
+  border-radius: 30px;
+}
+
+.custom_footer {
+  margin: auto;
+  border-radius: 30px;
+  text-align: center;
 }

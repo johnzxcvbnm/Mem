@@ -11,7 +11,6 @@ class PostShow extends React.Component {
   render(){
     return (
       <div>
-        <h1>Post Show!</h1>
         <h5>{this.props.post.username}</h5>
         <img src={this.props.post.url}/>
         {

@@ -1,7 +1,7 @@
 class NavBar extends React.Component {
   render() {
     return (
-      <div class="columns">
+      <div class="columns navbar custom_nav">
         <h2 class="column is-two-thirds"
           onClick={() => this.props.changePage("postList")}>
             MEM
@@ -24,7 +24,6 @@ class NavBar extends React.Component {
           :
             <h2 class="column" onClick={() => this.props.changePage("userLogin")}>Log In</h2>
         }
-
       </div>
     )
   }

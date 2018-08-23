@@ -9,16 +9,16 @@ class PostList extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>POST LIST PAGE</h1>
+      <div className="custom_postWrapper">
         {
           this.props.posts.map((post, index) => {
             return(
-              <div>
+              <div className="custom_post">
                 <h5>{post.username}</h5>
-                <img src={post.url}
+                <img
+                   className="postList_Image"
+                   src={post.url}
                    onClick={() => this.props.selectPost(post, index)}/>
-                <hr />
               </div>
             )
           })

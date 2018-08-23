@@ -8,8 +8,9 @@ class NavBar extends React.Component {
         </h2>
         {
           this.props.loggedUser ?
-            <h2 class="column">New Post</h2>
-          : ''
+            <h2 class="column" onClick={() => this.props.changePage("postCreate")}>New Post</h2>
+          :
+            <h2 class="column" onClick={() => this.props.changePage("userRegister")}>Guest</h2>
         }
         {
           this.props.loggedUser ?

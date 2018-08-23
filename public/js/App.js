@@ -5,7 +5,8 @@ class App extends React.Component {
       page: {
         userLogin: false,
         userRegister: false,
-        postList: true
+        postList: true,
+        postCreate: false
       },
       loggedUser: null,
       posts: []
@@ -16,6 +17,7 @@ class App extends React.Component {
     this.logOut = this.logOut.bind(this);
     this.loginUser = this.loginUser.bind(this);
     this.loadPosts = this.loadPosts.bind(this);
+    this.createPost = this.createPost.bind(this);
   }
 
   componentDidMount() {
@@ -95,6 +97,30 @@ class App extends React.Component {
     });
   }
 
+  createPost(new_post){
+    // console.log("New Post");
+    // console.log(new_post);
+    fetch("/posts", {
+      body: JSON.stringify(new_post),
+      method: "POST",
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(createdPost => {
+      return createdPost.json()
+    })
+    .then(jsonedPost => {
+      const copy_array = this.state.posts;
+      jsonedPost["username"] = this.state.loggedUser.username;
+      // // console.log([jsonedPost, ...this.state.posts]);
+      // //New posts are pushed to the top automatically
+      copy_array.unshift(jsonedPost);
+      this.setState({posts: copy_array});
+    })
+    .catch(error => console.log(error))
+  }
 
   render() {
     return (
@@ -120,7 +146,16 @@ class App extends React.Component {
 
         {
           this.state.page.postList ?
-            <PostList />
+            <PostList
+              posts={this.state.posts}/>
+          : ''
+        }
+        {
+          this.state.page.postCreate ?
+            <PostForm
+              loggedUser={this.state.loggedUser}
+              functionExecute={this.createPost}
+              changePage={this.changePage}/>
           : ''
         }
 

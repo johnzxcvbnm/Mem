@@ -19,7 +19,8 @@ class Post
           users.password
         FROM posts
         LEFT JOIN users
-          ON posts.user_id = users.id;
+          ON posts.user_id = users.id
+        ORDER BY posts.id DESC;
       SQL
     )
     return results.map do |result|

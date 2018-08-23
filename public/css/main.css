@@ -10,10 +10,30 @@ html {
 }
 
 .custom_nav {
+  padding: 10px;
+  border-radius: 15px;
+  background: var(--color4);
+  display: flex;
+  /* color: var(--color2); */
+  font-size: 1.3em;
+  font-weight: 900;
+}
 
+.navBar_Link {
+  color: black;
+}
+
+.navBar_Link:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.navBar_Title {
+  font-size: 1.7em;
 }
 
 .custom_container {
+  min-width: 750px;
   width: 95%;
   margin: 30px auto;
   padding: 20px;
@@ -23,26 +43,40 @@ html {
 .custom_postWrapper {
   width: 100%;
   margin: 30px auto;
-  border-radius: 30px;
+  padding: 30px;
+  border-radius: 15px;
   background: var(--color1);
 }
 
 .custom_post {
   margin: 20px auto;
+  padding: 20px;
   width: 70%;
-  border-radius: 30px;
+  border-radius: 15px;
   background: var(--color3);
+  display: flex;
+  justify-content: center;
+  color: var(--color1);
+  font-weight: 900;
+  font-size: 1.3em;
+}
+
+.postList_user {
+  padding-right: 30px;
 }
 
 .postList_Image {
-  width: 300px;
+  width: 400px;
   height: 300px;
-  margin: auto;
-  border-radius: 30px;
+  /* margin-left: 30px; */
+  border-radius: 15px;
 }
 
 .custom_footer {
   margin: auto;
-  border-radius: 30px;
+  border-radius: 15px;
   text-align: center;
+  background: var(--color4);
+  font-weight: 900;
+  font-size: 1.3em;
 }

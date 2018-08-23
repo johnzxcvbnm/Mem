@@ -14,7 +14,7 @@ class PostList extends React.Component {
           this.props.posts.map((post, index) => {
             return(
               <div className="custom_post">
-                <h5>{post.username}</h5>
+                <h5 className="postList_user">{post.username}</h5>
                 <img
                    className="postList_Image"
                    src={post.url}

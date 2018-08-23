@@ -148,11 +148,12 @@ class App extends React.Component {
   }
 
   selectPost(post, index){
-    // console.log("SELETING POST");
+    console.log("SELETING POST");
     if(post.id != 0){
       fetch("/posts/" + post.id)
       .then(response => response.json())
       .then(my_post => {
+        console.log(my_post);
         this.setState({selectedPost: my_post,
                        selectedPostIndex: index});
         this.changePage("postShow");
@@ -182,7 +183,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div class="container">
+      <div className="custom_container">
         <NavBar
           changePage={this.changePage}
           loggedUser={this.state.loggedUser}
@@ -214,7 +215,8 @@ class App extends React.Component {
             <PostForm
               loggedUser={this.state.loggedUser}
               functionExecute={this.createPost}
-              changePage={this.changePage}/>
+              changePage={this.changePage}
+              title="New Post"/>
           : ''
         }
         {
@@ -223,17 +225,28 @@ class App extends React.Component {
               loggedUser={this.state.loggedUser}
               functionExecute={this.editPost}
               changePage={this.changePage}
-              post={this.state.selectedPost}/>
+              post={this.state.selectedPost}
+              title="Edit Post"/>
           : ''
         }
         {
-          this.state.page.postShow ?
+          this.state.page.postShow && this.state.loggedUser ?
             <PostShow
               changePage={this.changePage}
               loggedUser={this.state.loggedUser}
               post={this.state.selectedPost}
               deletePost={this.deletePost}
               />
+          : ''
+        }
+        {
+          this.state.page.postShow && !(this.state.loggedUser) ?
+          <PostShow
+            changePage={this.changePage}
+            loggedUser={ {id: -1} }
+            post={this.state.selectedPost}
+            deletePost={this.deletePost}
+            />
           : ''
         }
 
